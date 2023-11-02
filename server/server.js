@@ -7,7 +7,6 @@ const { expressMiddleware } = require("@apollo/server/express4");
 
 const path = require("path");
 const db = require("./config/connection");
-//const routes = require('./routes');
 
 const { typeDefs, resolvers } = require("./schemas");
 
@@ -37,9 +36,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
   db.once("open", () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
-      console.log(
-        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
-      );
+      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
     });
   });
 };
