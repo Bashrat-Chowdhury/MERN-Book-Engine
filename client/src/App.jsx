@@ -1,14 +1,20 @@
-import './App.css';
-import { Outlet } from 'react-router-dom';
+import "./App.css";
+import { Outlet } from "react-router-dom";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-import Navbar from './components/Navbar';
+const client = new ApolloClient({
+  uri: "https://flyby-router-demo.herokuapp.com/",
+  cache: new InMemoryCache(),
+});
+
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <>
+    <ApolloProvider client={client}>
       <Navbar />
       <Outlet />
-    </>
+    </ApolloProvider>
   );
 }
 
