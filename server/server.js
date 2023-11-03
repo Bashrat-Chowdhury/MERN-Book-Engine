@@ -20,7 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 //function to start Apollo Server
-const startApolloServer = async (typeDefs, resolvers) => {
+const startApolloServer = async () => {
   await server.start();
 
   app.use(express.urlencoded({ extended: true }));
@@ -41,6 +41,4 @@ const startApolloServer = async (typeDefs, resolvers) => {
   });
 };
 
-startApolloServer(typeDefs, resolvers).then((r) =>
-  console.log(`Server has been started!`)
-);
+startApolloServer();
