@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
-import { deleteBook, getMe } from "../utils/API";
+import { deleteBook, getMe } from "../utils/API"; //replace this (import query and use it in the function)
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 

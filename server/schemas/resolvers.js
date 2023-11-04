@@ -4,14 +4,22 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    user: async (parent, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({})
-          .select("-__v -password")
-          .populate("books");
-        return userData;
+    user: async (parent, args, context, info) => {
+      const { user, params } = args;
+
+      // fetch a single user by id or username
+      const foundUser = await User.findOne({
+        $or: [
+          { _id: user ? user.id : params.id },
+          { username: params.username },
+        ],
+      });
+
+      if (!foundUser) {
+        throw new Error("Cannot find a user with this id!");
       }
-      throw new AuthenticationError("Something is wrong!");
+
+      return foundUser;
     },
   },
 
@@ -51,7 +59,7 @@ const resolvers = {
         return updatedUser;
       }
 
-      throw new AuthenticationError("Not logged in!");
+      throw new AuthenticationError("Error saving book");
     },
 
     deleteBook: async (parent, args, context) => {
